@@ -1,0 +1,27 @@
+{
+  "name": "@mishguru/cancel-token",
+  "version": "1.0.0",
+  "description": "Cancel Token for Promises",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "test": "pkg-test",
+    "build": "pkg-build",
+    "lint": "pkg-lint",
+    "tidy": "pkg-tidy"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mishguruorg/cancel-token.git"
+  },
+  "author": "Mish Guru <devs@mish.guru>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mishguruorg/cancel-token/issues"
+  },
+  "homepage": "https://github.com/mishguruorg/cancel-token#readme",
+  "devDependencies": {
+    "@mishguru/package": "7.5.0",
+    "delay": "4.3.0"
+  }
+}
