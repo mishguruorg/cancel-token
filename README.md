@@ -21,14 +21,18 @@
 ### Example of cancelling an HTTP request
 
 ```typescript
-const get = (uri: string, cancelToken: CancelToken) => {
+const get = async (uri: string, cancelToken: CancelToken) => {
   return new Promise((resolve, reject) => {
 
-    // check to see if the token is already cancelled
+    // check to see if the token is cancelled before the requests starts
     cancelToken.throwIfRequested()
 
     // do something async
     const request = https.get({ uri }, (error, response) => {
+
+      // check to see if the token was cancelled after the request started
+      cancelToken.throwIfRequested()
+
       if (error != null) {
         reject(error)
       } else {
@@ -55,7 +59,7 @@ const source = CancelToken.source()
 get('https://api.mish.guru/info.json', source.token).then(console.log)
 
 // cancel it
-source.cancel(new Error('Aborting foo'))
+source.cancel(new Error('We no longer need info'))
 ```
 
 ## references
