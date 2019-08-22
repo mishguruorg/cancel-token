@@ -23,9 +23,11 @@
 ```typescript
 const get = (uri: string, cancelToken: CancelToken) => {
   return new Promise((resolve, reject) => {
+
     // check to see if the token is already cancelled
     cancelToken.throwIfRequested()
 
+    // do something async
     const request = https.get({ uri }, (error, response) => {
       if (error != null) {
         reject(error)
