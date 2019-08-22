@@ -21,28 +21,26 @@
 ### Example of cancelling an HTTP request
 
 ```typescript
-const get = async (uri: string, cancelToken: CancelToken) => {
+const get = async (url: string, cancelToken: CancelToken): Promise<string> => {
+  // check to see if the token is cancelled before the requests starts
+  cancelToken.throwIfRequested()
+
   return new Promise((resolve, reject) => {
-
-    // check to see if the token is cancelled before the requests starts
-    cancelToken.throwIfRequested()
-
-    // do something async
-    const request = https.get({ uri }, (error, response) => {
-
-      // check to see if the token was cancelled after the request started
-      cancelToken.throwIfRequested()
-
-      if (error != null) {
-        reject(error)
-      } else {
-        resolve(response)
-      }
+    // download a url async
+    const request = https.get(url, (response) => {
+      let body = ''
+      response.setEncoding('utf8')
+      response.on('data', (chunk) => (body += chunk))
+      response.on('end', () => resolve(body))
+      response.on('error', reject)
     })
+    request.on('error', reject)
 
-    // listen for token to be cancelled
-    // if it is, then we abort the request
-    cancelToken.promise.then(() => request.abort())
+    // watch if the token gets cancelled, and cleanup
+    cancelToken.promise.then((error) => {
+      reject(error)
+      request.abort()
+    })
   })
 }
 ```

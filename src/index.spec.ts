@@ -1,5 +1,4 @@
 import test from 'ava'
-import delay from 'delay'
 
 import CancelToken from './index'
 
