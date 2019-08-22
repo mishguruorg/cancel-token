@@ -1,6 +1,6 @@
 {
   "name": "@mishguru/cancel-token",
-  "version": "1.0.0",
+  "version": "0.2.0",
   "description": "Cancel Token for Promises",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
